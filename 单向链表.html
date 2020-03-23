@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>单向链表</title>
+</head>
+<body>
+  <script>
+    class Node {
+      constructor (value) {
+        this.value = value
+        this.next = null
+      }
+    }
+
+    class LinkList {
+      constructor () {
+        this.head = null
+      }
+      _findValue (value) {
+        let currentNode = this.head
+        while (currentNode !== null && currentNode.next !== null && currentNode.value !== value) {
+          currentNode = currentNode.next
+        }
+        return currentNode
+
+      }
+      append (value) {
+        if (!this.head) {
+          this.head = new Node(value)
+          return
+        }
+        let currentNode= this._findValue(value)
+        if (currentNode.value === value) {
+          throw Error('value already exsist')
+        } else {
+          currentNode.next = new Node(value)
+        }
+      }
+      insert (value, target) {
+        let currentNode = this.head
+        while (currentNode !== null && currentNode.next !== null && currentNode.value !== target) {
+          if (currentNode.value === value) {
+            throw Error('value already exsist')
+          }
+          currentNode = currentNode.next
+        }
+        if (currentNode.value === target) {
+          let newNode = new Node(value)
+          newNode.next = currentNode.next
+          currentNode.next = newNode
+        } else {
+          throw Error('target is not find')
+        }
+      }
+      delete (target) {
+        let currentNode = this.head
+        let preNode = null
+        while (currentNode != null && currentNode.value !== target) {
+          preNode = currentNode
+          currentNode = currentNode.next
+        }
+        if (currentNode === null) {
+          throw Error('target is not full')
+        }
+        if (currentNode.value === this.head.value) {
+          this.head = this.head.next
+        } else {
+          preNode.next = currentNode.next
+        }
+      }
+    }
+    let list = new LinkList()
+    list.append(1)
+    list.append(2)
+    list.append(3)
+    list.insert(4, 1)
+    list.delete(6)
+    console.log(list)
+  </script>
+</body>
+</html>
