@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>双向链表</title>
+</head>
+<body>
+  <script>
+    class Node {
+      constructor (value) {
+        this.value = value
+        this.next = null
+        this.pre = null
+      }
+    }
+
+    class DoubleLinkList {
+      constructor (value) {
+        this.head = null
+        this.tail = null
+      }
+      findValue (value) {
+        let currentNode = this.head
+        while(currentNode !== null && currentNode.value !== value) {
+          currentNode = currentNode.next
+        }
+        return currentNode ? currentNode : -1
+      }
+      append (value) {
+        if (this.head !== null) {
+          let newNode = new Node(value)
+          newNode.pre = this.tail
+          this.tail.next = newNode
+          this.tail = newNode
+        } else {
+          this.head = new Node(value)
+          this.tail = this.head
+        }
+      }
+      insert (value, target) {
+        let currentNode = this.findValue(target)
+        if (currentNode.value !== target) {
+          console.log('target is not find')
+          return null
+        }
+        let newNode = new Node(value)
+        if (currentNode.next === null) { // 插入到尾部
+          newNode.pre = currentNode
+          currentNode.next = newNode
+          this.tail = newNode
+        } else {
+          currentNode.next.pre = newNode
+          newNode.next = currentNode.next
+          newNode.pre = currentNode
+          currentNode.next = newNode
+        }
+      }
+      delete (target) {
+        let currentNode = this.findValue(target)
+        if (currentNode === -1) {
+          console.log('target is not find')
+          return null
+        }
+        if (currentNode.pre === null) { // 删除的是头部
+          currentNode.next.pre = null
+          this.head = currentNode.next
+        } else if (currentNode.next === null) { // 删除的是尾部
+          currentNode.pre.next = null
+          this.tail = currentNode.pre
+        } else {
+          currentNode.pre.next = currentNode.next
+          currentNode.next.pre = currentNode.pre
+        }
+      }
+      print () {
+        let currentNode = this.head
+        while(currentNode !== null) {
+          console.log(currentNode.value)
+          currentNode = currentNode.next
+        }
+      }
+      reverse () {
+        let currentNode = this.head
+        let pre = null
+        let next = null
+        while (currentNode !== null) {
+          pre = currentNode.next // 用于下一个节点的pre
+          currentNode.next = next
+          next = currentNode  // 用于下一个节点的next
+          currentNode.pre = pre
+
+          currentNode = pre
+        }
+        this.head = next
+      }
+    }
+
+    let doubleLinkList = new DoubleLinkList()
+    doubleLinkList.append(1)
+    doubleLinkList.append(2)
+    doubleLinkList.append(3)
+    doubleLinkList.insert(4, 3)
+    doubleLinkList.delete(4)
+    // doubleLinkList.delete(2)
+    console.log('------反转前------')
+    doubleLinkList.print()
+    console.log('------反转后------')
+    doubleLinkList.reverse()
+    doubleLinkList.print()
+  </script>
+</body>
+</html>
