@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>循环队列</title>
+</head>
+<body>
+  <script src="./lib/queue.js"></script>
+  <script>
+    /*
+      基于队列
+      队列的第一个出列，不删除，将其放在队列的最后面
+    */
+
+    let queue = new Queue()
+
+    // 丢手绢
+    let childrens = ['小明', '小红', '小强', '小王', '小李', '小张', '小黑']
+    childrens.forEach(item => {
+      queue.enqueue(item)
+    })
+    queue.print()
+    function playGame () {
+
+    }
+  </script>
+</body>
+</html>

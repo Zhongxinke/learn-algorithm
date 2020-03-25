@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>优先队列</title>
+</head>
+<body>
+  <script>
+    /*
+      优先队列
+      比较对象的优先级，优先级小的排在前面（最小优先队列）
+    */
+    class Node {
+      constructor (value, level) {
+        this.value = value
+        this.level = level
+      }
+    }
+    class PriorQueue {
+      constructor () {
+        this.queue = []
+      }
+      isEmpty () {
+        return this.queue.length === 0
+      }
+      enqueue (ele) {
+        if (this.isEmpty()) { // 如果队列为空，直接添加
+          this.queue.push(ele)
+        } else {
+          for (let i = 0, len = this.queue.length; i < len; ++i) {
+            if (ele.level < this.queue[i].level) { // 如果优先级小于当前等级，就添加到其前面
+              this.queue.splice(i, 0, ele)
+              break;
+            } else if (i === len - 1) { // 如果是最后一个，就添加到后面
+              this.queue.push(ele)
+            }
+          }
+        }
+      }
+      dequeue () {
+        if (this.isEmpty()) {
+          console.log('the queue is empty')
+          return null
+        }
+        return this.queue.shift()
+      }
+      front () {
+        return this.queue[0]
+      }
+      print () {
+        this.queue.forEach(item => {
+          console.log(item)
+        })
+      }
+    }
+    let priorQueue = new PriorQueue()
+    console.log('---入列---')
+    priorQueue.enqueue(new Node('人物1', 5))
+    priorQueue.enqueue(new Node('人物4', 6))
+    priorQueue.enqueue(new Node('人物5', 1))
+    priorQueue.enqueue(new Node('人物2', 4))
+    priorQueue.enqueue(new Node('人物3', 1))
+    priorQueue.enqueue(new Node('人物6', 7))
+    priorQueue.print()
+    console.log('---出列---')
+    console.log(`${priorQueue.dequeue().value}出列`)
+    console.log(`${priorQueue.dequeue().value}出列`)
+    console.log(`${priorQueue.dequeue().value}出列`)
+  </script>
+</body>
+</html>

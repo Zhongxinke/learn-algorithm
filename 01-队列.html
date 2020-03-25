@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>队列</title>
+</head>
+<body>
+  <script>
+    /*
+      先进先出的特点
+      isEmpty   队列是否空
+      enqueue   入列
+      dequeue   第一个出列
+      front     队首
+      print     打印队列
+    */ 
+    class Queue {
+      constructor () {
+        this.queue = []
+      }
+      isEmpty () {
+        return this.queue.length === 0
+      }
+      enqueue (value) {
+        this.queue.push(value)
+      }
+      dequeue () {
+        if (this.isEmpty()) {
+          console.log('the queue is empty')
+          return null
+        }
+        return this.queue.shift()
+      }
+      front () {
+        return this.queue[0]
+      }
+      clear () {
+        this.queue = []
+      }
+      print () {
+        this.queue.forEach(item => {
+          console.log(item)
+        })
+      }
+    }
+    let queue = new Queue()
+    console.log('----入列----')
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.enqueue(3)
+    queue.enqueue(4)
+    queue.print()
+    console.log('---队首---')
+    console.log(queue.front())
+    console.log('----出列----')
+    queue.dequeue()
+    queue.dequeue()
+    queue.dequeue()
+    queue.print()
+  </script>
+</body>
+</html>
