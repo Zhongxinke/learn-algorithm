@@ -16,14 +16,23 @@
     let queue = new Queue()
 
     // 丢手绢
-    let childrens = ['小明', '小红', '小强', '小王', '小李', '小张', '小黑']
+    let childrens = ['小明', '小红', '小强', '小王', '小李']
     childrens.forEach(item => {
       queue.enqueue(item)
     })
+    console.log('---参与者---')
     queue.print()
-    function playGame () {
-
+    console.log('---游戏开始---')
+    function playGame (num) {
+      while(queue.size() > 1) {
+        for (let i = 0; i < num; ++i) {
+          queue.enqueue(queue.dequeue())
+        }
+        console.log(`${queue.dequeue()}被淘汰了`)
+      }
+      console.log(`${queue.front()}获胜`)
     }
+    playGame(7)
   </script>
 </body>
 </html>
