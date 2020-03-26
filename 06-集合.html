@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>集合</title>
+</head>
+<body>
+    <script>
+        /*
+            集合
+            无序不重复的集合，类似ES6的Set
+
+            has     判断是否存在
+            add     添加对象
+            remove  移除对象
+            clear   清除所有对象
+            size    返回集合的大小
+            values  返回以数组形式的所有对象值
+
+            union(Set对象)          交集：返回一个包含两个集合中所有元素的新集合
+            intersection(Set对象)   并集：返回一个两个集合共有元素的新集合
+            difference(Set对象)     差集: 返回一个不包含另一个集合所有元素的新集合
+            subset(Set对象)         子集：返回另一个集合是否是子集
+        */ 
+        class Set {
+            constructor () {
+                this.items = {}
+            }
+            has (value) {
+                return this.items.hasOwnProperty(value)
+            }
+            add (value) {
+                if (!this.has(value)) {
+                    this.items[value] = value
+                    return true
+                }
+                return false
+            }
+            remove (value) {
+                if (this.has(value)) {
+                    delete this.items[value]
+                    return true
+                }
+                return false
+            }
+            clear () {
+                this.items = {}
+            }
+            size () {
+                return Object.keys(this.items).length
+            }
+            values () {
+                return Object.keys(this.items)
+            }
+            union (target) { // 并集
+                let newSet = new Set()
+                let values = [...this.values(), ...target.values()]
+                for (let i = 0, len = values.length; i < len; ++i) {
+                    newSet.add(values[i])
+                }
+                return newSet
+            }
+            intersection (target) { // 交集
+                let newSet = new Set()
+                let targetValues = target.values()
+                for (let i = 0, len = targetValues.length; i < len; ++i) {
+                    if (this.has(targetValues[i])) {
+                        newSet.add(targetValues[i])
+                    }
+                }
+                return newSet
+            }
+            difference (target) { // 差集
+                let newSet = new Set()
+                let values = this.values()
+                for (let i = 0, len = values.length; i < len; ++i) {
+                    if (!target.has(values[i])) {
+                        newSet.add(values[i])
+                    }
+                }
+                return newSet
+            }
+            subset (target) { // 子集
+                //先判断大小是否一直
+                if (this.size() !== target.size()) {
+                    return false
+                }
+                let targetValues = target.values()
+                for (let i = 0, len = targetValues.length; i < len; ++i) {
+                    if (!this.has(targetValues[i])){
+                        return false
+                    }
+                }
+                return true
+            }
+        }
+        let set = new Set()
+        set.add(1)
+        set.add(2)
+        let size = set.size()
+        let values = set.values()
+        console.log('size: ', size)
+        console.log('values: ', values)
+        set.remove(2)
+        console.log('删除后，values: ', set.values())
+
+        let setA = new Set()
+        setA.add(1)
+        setA.add(2)
+        setA.add(3)
+        let setB = new Set()
+        setB.add(3)
+        setB.add(4)
+        setB.add(5)
+        setB.add(6)
+        let setC = new Set()
+        setC.add(1)
+        setC.add(3)
+        // setC.add(4)
+        let result1 = setA.union(setB)
+        console.log('并集: ', result1.values())
+        let result2 = setA.intersection(setB)
+        console.log('交集：', result2.values())
+        let result3 = setA.difference(setB)
+        console.log('差集：', result3.values())
+        let result4 = setA.subset(setB)
+        console.log('setB是否是setA的子集：', result4)
+        let result5 = setA.subset(setC)
+        console.log('setC是否是setA的子集：', result5)
+    </script>
+</body>
+</html>
