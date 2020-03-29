@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>树</title>
+</head>
+<body>
+  <script>
+    /*
+      二叉搜索树(BST)
+
+      append    通过while方式插入
+      append1   通过递归方式插入
+
+      min       最小值
+      max       最大值
+      findValue 搜索值
+
+      inOrderTraverse   中序遍历: 从小到大访问所有节点
+      preOrderTraverse  先序遍历：先访问所有节点再访问后代节点
+      postOrderTraverse 后序遍历：先访问后代节点在访问节点
+
+    */ 
+    class Node {
+      constructor (value) {
+        this.value = value
+        this.left = null
+        this.right = null
+      }
+    }
+
+    class Tree {
+      constructor () {
+        this.root = null
+      }
+      insertNode (currentNode, newNode) {
+        if (newNode.value < currentNode.value) {
+          if (currentNode.left === null) {
+            currentNode.left = newNode
+          } else {
+            this.insertNode(currentNode.left, newNode)
+          }
+        } else {
+            if (currentNode.right === null) {
+              currentNode.right = newNode
+            } else {
+              this.insertNode(currentNode.right, newNode)
+            }
+          }
+      }
+      append (value) {
+        if (this.root === null) {
+          this.root = new Node(value)
+        } else {
+          let currentNode = this.root
+          let parentNode = null
+          while (currentNode !== null) {
+            parentNode = currentNode
+            if (value < currentNode.value) {
+              currentNode = currentNode.left
+            } else {
+              currentNode = currentNode.right
+            }
+          }
+          if (value < parentNode.value) {
+            parentNode.left = new Node(value)
+          } else {
+            parentNode.right = new Node(value)
+          }
+        }
+      }
+      append1 (value) {
+        if (this.root === null) {
+          this.root = new Node(value)
+        } else {
+          this.insertNode(this.root, new Node(value))
+        }
+      }
+      
+      /*
+        min 树的最小值，树的最左边节点的末端
+      */
+      min (node = this.root) {
+        if (node !== null) {
+          while (node.left !== null) {
+            node = node.left
+          }
+          return node
+        }
+        return null
+      }
+      /*
+        max 树的最大值，树的最右边节点的末端
+      */
+      max (node = this.root) {
+        if (node !== null) {
+          while (node.right !== null) {
+            node = node.right
+          }
+          return node
+        }
+        return null
+      }
+      /*
+        查找指定值
+      */ 
+      findValue (value) {
+        if (!value) {
+          return null
+        } else {
+          let currentNode = this.root
+          let parentNode = null
+          while (currentNode !== null) {
+            parentNode = currentNode
+            if (value < currentNode.value) {
+              currentNode = currentNode.left
+            } else if (value === currentNode.value) {
+              return true
+            } else {
+              currentNode = currentNode.right
+            }
+          }
+          return false
+        }
+      }
+      /*
+        删除
+        删除分三种情况
+        1、删除的节点无子节点
+          -赋值为null
+        2、删除的节点有一个节点
+          -
+        3、删除的节点有两个节点
+          -找到右边节点的最小值
+      */
+      deleteNode (node, value) {
+        if (node === null) { // 当节点为空时，返回null，结束递归
+          return null
+        }
+        if (value < node.value) { // 节点值小于目标值时
+          node.left = this.deleteNode(node.left, value)
+          return node // 将当前node返回给父节点
+        } else if (value > node.value) {
+          node.right = this.deleteNode(node.right, value)
+          return node
+        } else { // node等于value时
+          // 情况1
+          if (node.left === null && node.right === null) {
+            node = null
+            return node
+          }
+          // 情况2
+          if (node.left === null) { // 当左节点为空，右节点不为空
+            node = node.right
+            return node
+          } else if (node.right === null) {
+            node = node.left
+            return node
+          }
+          // 情况3
+          var min = this.min(node.right) // 找到节点右侧的最小值
+          node.value = min.value // 将最小值赋给节点
+          node.right = this.deleteNode(node.right, min.value) 
+          return node
+        }
+      }
+      delete (target) {
+        if (!target) {
+          return null
+        } else {
+          this.deleteNode(this.root, target)
+        }
+      }
+    }
+    let tree = new Tree()
+    tree.append(7)
+    tree.append(5)
+    tree.append(11)
+    tree.append(3)
+    tree.append(4)
+    tree.append(13)
+    tree.append1(14)
+    console.log(tree.root)
+    let min = tree.min()
+    console.log('最小值：', min.value)
+    let max = tree.max()
+    console.log('最大值：', max.value)
+    console.log('findValue(11)：',  tree.findValue(11))
+    console.log('findValue(15)：',  tree.findValue(15))
+    tree.delete(14)
+    console.log('删除14后的结果', tree)
+  </script>
+</body>
+</html>
