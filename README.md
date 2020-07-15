@@ -13,6 +13,6 @@
 ### leetcode题
 根据五毒神掌规则，解题时，先思考5-10分钟，如果没思路，就看官方的解题思路或其他精选的解题思路。每道题都重复写5遍，加深印象。最后，去看国际版的题解。
 
-    [589.N叉树的前序遍历] (https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/)
+    [589.N叉树的前序遍历](https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/)
 ### 参考文献
 - 学习javascript数据结构与算法
