@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图</title>
+</head>
+<body>
+    <script src="./lib/dictionary.js"></script>
+    <script>
+        class Graph {
+            constructor () {
+                this.vertices = []
+                this.adjList = new Dictionary ()
+            }
+            addVertex (v) {
+                this.vertices.push(v)
+                this.adjList.set(v, [])
+            }
+            addEdge (v, w) {
+                adjList.get(v).push(w)
+                adjList.get(w).push(v)
+            }
+        }
+
+        let graph = new Graph()
+        let myVertices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+        for (let i = 0; i < myVertices.length; ++i) {
+            graph.addVertex(myVertices[i])
+        }
+        graph.addEdge('A', 'B')
+    </script>
+</body>
+</html>
