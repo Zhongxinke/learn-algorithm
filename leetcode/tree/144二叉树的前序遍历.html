@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <code>
+        原题：https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
+    </code>
+    <script>
+        var tree = {
+            val: 3,
+            left: {
+                val: 1,
+                left: {
+                    val: 2,
+                    left: null,
+                    right: null
+                },
+                right: null
+            },
+            right: {
+                val: 4,
+                left: null,
+                right: null
+            }
+        }
+        var preorderTraversal = function (root) {
+            if (!root) return [] // root为空，返回空
+            var result = []
+            var stack = [root] // 将根节点存到栈中
+            
+            while (stack.length) { // 当栈不为空时
+                var cur = stack.pop() // 当前节点栈出栈
+                result.push(cur.val) // 保存当前节点的val （先访问节点）
+
+                /*
+                    先保存右节点再保存左节点，左节点先出栈 （访问左节点再访问右节点）
+                */
+                if (cur.right) { // 保存右节点
+                    stack.push(cur.right)
+                }
+                
+                if (cur.left) { // 保存左节点
+                    stack.push(cur.left)
+                } 
+            }
+
+            return result
+        }
+        console.log(preorderTraversal(tree))
+    </script>
+</body>
+</html>
