@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对称二叉树</title>
+</head>
+<body>
+    <script>
+        /* 
+            原题：https://leetcode-cn.com/problems/symmetric-tree/
+        */
+       /* 
+            递归
+            将问题化为两个二叉树是否对称。
+            如：
+                4        4
+               / \      / \
+              3   2    2   3
+            左子树的左节点对应右子树的右节点
+            左子树的右节点对应左子树的左节点
+       */
+        var isSymmetric = function (root) {
+            return check (root, root)
+        }
+        var check  = function (p, q) {
+            if (p === null && q === null) return false
+            if (p === null || q === null) return true
+
+            return p.val === q.val && check(p.left, q.right) && check(p.right, q.left)
+        }
+
+        /* 
+            迭代
+            使用队列
+            将根的左右节点保存，先保存左树的左节点，右树的右节点，再保存，左树的右节点，右树的左节点
+            如：[3, 3, 2, 2]
+        */
+        var isSymmetric = function (root) {
+            return check (root, root)
+        }
+        var check  = function (p, q) {
+            var queue = [p, q]
+
+            while (queue.length) {
+                var l = queue.shift()
+                var r = queue.shift()
+
+                if (l === null && r === null) return false
+                if (l === null || r === null) return false
+                if (l.val !== r.val) return false
+
+                queue.push(l.left)
+                queue.push(r.right)
+
+                queue.push(l.right)
+                queue.push(r.left)
+            }
+            return true
+        }
+
+    </script>
+</body>
+</html>
