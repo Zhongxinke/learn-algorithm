@@ -19,6 +19,9 @@
               3   2    2   3
             左子树的左节点对应右子树的右节点
             左子树的右节点对应左子树的左节点
+
+            时间复杂度：遍历了每个节点，O(n)
+            空间复杂度：O(n)
        */
         var isSymmetric = function (root) {
             return check (root, root)
@@ -35,6 +38,9 @@
             使用队列
             将根的左右节点保存，先保存左树的左节点，右树的右节点，再保存，左树的右节点，右树的左节点
             如：[3, 3, 2, 2]
+            
+            时间复杂度：遍历了每个节点，O(n)
+            空间复杂度：O(n)
         */
         var isSymmetric = function (root) {
             return check (root, root)
