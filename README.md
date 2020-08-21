@@ -22,6 +22,8 @@
 [101.对称二叉树](../../tree/master/leetcode/tree/101.对称二叉树.html)
 
 [107.二叉树的层次遍历II](https://github.com/Zhongxinke/learn-algorithm/issues/1)
+
+[111.二叉树的最小深度](https://github.com/Zhongxinke/learn-algorithm/issues/2)
     
 ### 参考文献
 - 学习javascript数据结构与算法
